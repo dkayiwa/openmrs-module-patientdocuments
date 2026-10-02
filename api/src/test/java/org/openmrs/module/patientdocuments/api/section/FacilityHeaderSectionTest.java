@@ -71,6 +71,9 @@ public class FacilityHeaderSectionTest extends BaseModuleContextSensitiveTest {
 			attribute.setAttributeType(phoneType);
 			attribute.setValue(phoneValue);
 			location.addAttribute(attribute);
+			// Save it so the attribute gets its value reference: Hibernate 7 cascades the
+			// unsaved attribute into the auto-flush before the section's global-property query
+			location = Context.getLocationService().saveLocation(location);
 		}
 
 		Visit visit = new Visit();
